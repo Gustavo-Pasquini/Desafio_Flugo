@@ -1,35 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Box from '@mui/material/Box';
+import Sidebar from './components/Sidebar';
+import UserAvatar from './components/UserAvatar';
+import HeaderActions from './components/HeaderActions';
+import ColaboradoresTable from './components/ColaboradoresTable';
+import CadastroColaboradores from './components/CadastroColaboradores';
+import { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [novoColaborador, setNovoColaborador] = useState(false);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Box sx={{ display: 'flex', width: '100vw', height: '100vh', background: '#f9fafb' }}>
+      <Sidebar />
+      <Box sx={{ flex: 1, p: 5, background: '#f9fafb', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <UserAvatar />
+        { novoColaborador ? 
+          <CadastroColaboradores setNovoColaborador={setNovoColaborador} />
+        :
+        <>
+          <HeaderActions setNovoColaborador={setNovoColaborador} />
+          <ColaboradoresTable />
+        </>
+        }
+      </Box>
+    </Box>
+  );
 }
 
-export default App
+export default App;
