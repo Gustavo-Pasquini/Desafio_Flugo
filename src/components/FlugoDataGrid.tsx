@@ -1,5 +1,4 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import Box from '@mui/material/Box';
 
 type FlugoDataGridProps = {
   columns: GridColDef[];

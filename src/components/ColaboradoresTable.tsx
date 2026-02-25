@@ -1,13 +1,19 @@
 import { Paper, Box, Typography, Avatar, Chip } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import FlugoDataGrid from './flugoDataGrid';
+import { GridColDef } from '@mui/x-data-grid';
+import FlugoDataGrid from './FlugoDataGrid';
+import { useEffect, useState, useRef } from 'react';
+import { getColaboradores } from '../config/colaboradoresFirestore';
 
-const rows = [
-  { id: 1, name: 'Fernanda Torres', email: 'fernandatorres@flugo.com', department: 'Design', status: 'Ativo', avatar: 'https://randomuser.me/api/portraits/women/1.jpg' },
-  { id: 2, name: 'Joana D’Arc', email: 'joanadarc@flugo.com', department: 'TI', status: 'Ativo', avatar: 'https://randomuser.me/api/portraits/women/2.jpg' },
-  { id: 3, name: 'Mari Froes', email: 'marifroes@flugo.com', department: 'Marketing', status: 'Ativo', avatar: 'https://randomuser.me/api/portraits/women/3.jpg' },
-  { id: 4, name: 'Clara Costa', email: 'claracosta@flugo.com', department: 'Produto', status: 'Inativo', avatar: 'https://randomuser.me/api/portraits/women/4.jpg' },
-];
+const formataDadosRows = (dados: any[]) => {
+  return dados.map((colab) => ({
+    id: colab.id,
+    name: colab.nome,
+    email: colab.email,
+    department: colab.departamento,
+    status: colab.ativo ? 'Ativo' : 'Inativo',
+    avatar: colab.avatar || `https://i.pravatar.cc/150?u=${colab.email}`,
+  }));
+}
 
 const columns: GridColDef[] = [
   {
@@ -42,10 +48,28 @@ const columns: GridColDef[] = [
 ];
 
 export default function ColaboradoresTable() {
+
+  const [colaboradores, setColaboradores] = useState<any>([]);
+  const colaboradoresRef = useRef<any>([]);
+
+  useEffect(() => {
+    async function trazColaboradores() {
+      try {
+        const colaboradoresJaCadastrados = await getColaboradores();
+        console.log('Colaboradores:', colaboradoresJaCadastrados);
+        setColaboradores(formataDadosRows(colaboradoresJaCadastrados));
+        colaboradoresRef.current = formataDadosRows(colaboradoresJaCadastrados);
+      } catch (error) {
+        console.error('Erro ao buscar colaboradores:', error);
+      }
+    }
+    trazColaboradores();
+}, []);
+
   return (
     <Box sx={{ flex: 1, display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-start' }}>
       <Paper elevation={3} sx={{ borderRadius: 4, overflow: 'hidden', width: '100%', margin: '0 auto' }}>
-        <FlugoDataGrid columns={columns} rows={rows} />
+        <FlugoDataGrid columns={columns} rows={colaboradores} />
       </Paper>
     </Box>
   );

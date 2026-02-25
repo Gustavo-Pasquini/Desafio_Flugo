@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import InfosPessoais from './InfosPessoais';
 import InfosProfissionais from './InfosProfissionais';
 import { z } from 'zod';
+import { addColaborador } from '../config/colaboradoresFirestore';
 // Schema de validação com zod
 const colaboradorSchema = z.object({
     nome: z.string().min(2, 'Informe o nome'),
@@ -53,7 +54,7 @@ const CadastroColaboradores = ({setNovoColaborador}: CadastroColaboradoresProps)
             setActiveStep(s => s + 1);
         }
 
-        function handleConcluir() {
+        async function handleConcluir() {
             const result = colaboradorSchema.safeParse({ nome, email, departamento, ativo });
                     if (!result.success) {
                         const fieldErrors: { [key: string]: string } = {};
@@ -65,6 +66,7 @@ const CadastroColaboradores = ({setNovoColaborador}: CadastroColaboradoresProps)
                     }
             setErrors({});
             // Aqui você pode enviar os dados para o backend
+            await addColaborador({ nome, email, departamento, ativo, avatar: `https://i.pravatar.cc/150?u=${email}` });
             alert('Colaborador cadastrado com sucesso!');
             setNovoColaborador(false);
         }
@@ -145,7 +147,7 @@ const CadastroColaboradores = ({setNovoColaborador}: CadastroColaboradoresProps)
                                 <Button
                                     variant="contained"
                                     sx={{ background: '#22c55e', borderRadius: 2, textTransform: 'none', fontWeight: 600, px: 5, '&:hover': { background: '#16a34a' } }}
-                                    onClick={handleConcluir}
+                                    onClick={async () => await handleConcluir()}
                                 >
                                     Concluir
                                 </Button>
