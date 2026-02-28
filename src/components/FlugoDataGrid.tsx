@@ -3,9 +3,10 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 type FlugoDataGridProps = {
   columns: GridColDef[];
   rows: any[];
+  setSelectedRows: React.Dispatch<React.SetStateAction<any>>;
 };
 
-const FlugoDataGrid = ({columns, rows}: FlugoDataGridProps) => {
+const FlugoDataGrid = ({columns, rows, setSelectedRows}: FlugoDataGridProps) => {
   return (
     <DataGrid
       autoHeight={false}
@@ -15,6 +16,16 @@ const FlugoDataGrid = ({columns, rows}: FlugoDataGridProps) => {
       disableColumnMenu
       disableRowSelectionOnClick
       disableColumnResize
+      checkboxSelection
+      onRowSelectionModelChange={(selection) => {
+        if (Array.isArray(selection.ids)) {
+          setSelectedRows(selection.ids);
+        } else if (selection.ids instanceof Set) {
+          setSelectedRows(Array.from(selection.ids));
+        } else {
+          setSelectedRows([]);
+        }
+      }}
       sx={{
         background: '#fff',
         border: 'none',
