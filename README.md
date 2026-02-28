@@ -24,12 +24,18 @@
   VITE_FIREBASE_APP_ID=...
   ```
 
-4. **Inicie o servidor de desenvolvimento:**
+
+4. **Cadastre um usuário no Firebase Authentication:**
+   - Acesse o [console do Firebase](https://console.firebase.google.com/).
+   - Vá em "Authentication" > "Users" e clique em "Add user".
+   - Cadastre um e-mail e senha para acessar o sistema.
+
+5. **Inicie o servidor de desenvolvimento:**
   ```bash
   npm run dev
   ```
 
-5. **Acesse o projeto:**
+6. **Acesse o projeto:**
   Abra o navegador e acesse [http://localhost:5173](http://localhost:5173)
 
 ---
