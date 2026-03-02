@@ -9,7 +9,7 @@ export default function Sidebar() {
       <Box display="flex" alignItems="center" gap={1}>
         <a onClick={() => globalThis.location.replace('/homepage')} style={{ cursor: 'pointer' }}><img src="/flugo.png" alt="Flugo" style={{ width: 87, height: 32 }} /></a>
       </Box>
-      { window.location.href.split('/').pop() !== '/emacesso' && 
+      { window.location.href.split('/').pop() !== 'semacesso' && 
       <>
         <Box mt={4}>
           <Button 

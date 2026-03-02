@@ -11,12 +11,17 @@ const departamentoSchema = z.object({
 
 const steps = ['Informações Básicas', 'Colaboradores'];
 
-export default function CadastroDepartamento({ departamento, onClose, gestores, colaboradores: colaboradoresProp, tipo }: any) {
+export default function CadastroDepartamento({ departamento, onClose, colaboradores: colaboradoresProp, tipo }: any) {
   const [activeStep, setActiveStep] = useState(0);
   const [nome, setNome] = useState(departamento?.nome || '');
   const [gestor, setGestor] = useState(departamento?.gestor || '');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [colaboradores, setColaboradores] = useState<any[]>(colaboradoresProp);
+
+  // Função para filtrar gestores
+  function getGestores(colabs: any[]) {
+    return colabs.filter((c: any) => c.nivel === 'gestor');
+  }
 
   // Atualiza lista de colaboradores ao prop mudar
   useEffect(() => {
@@ -111,6 +116,14 @@ export default function CadastroDepartamento({ departamento, onClose, gestores, 
                       error={!!errors.nome}
                       helperText={errors.nome}
                       fullWidth
+                      InputLabelProps={{ sx: { color: '#22c55e', fontWeight: 500 } }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          '& fieldset': { borderColor: '#22c55e' },
+                          '&:hover fieldset': { borderColor: '#16a34a' },
+                          '&.Mui-focused fieldset': { borderColor: '#22c55e' },
+                        },
+                      }}
                     />
                     <TextField
                       select
@@ -120,9 +133,17 @@ export default function CadastroDepartamento({ departamento, onClose, gestores, 
                       error={!!errors.gestor}
                       helperText={errors.gestor}
                       fullWidth
+                      InputLabelProps={{ sx: { color: '#22c55e', fontWeight: 500 } }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          '& fieldset': { borderColor: '#22c55e' },
+                          '&:hover fieldset': { borderColor: '#16a34a' },
+                          '&.Mui-focused fieldset': { borderColor: '#22c55e' },
+                        },
+                      }}
                     >
                       <MenuItem value="" disabled>Selecione</MenuItem>
-                      {gestores.map((g: any) => (
+                      {getGestores(colaboradores).map((g: any) => (
                         <MenuItem key={g.id} value={g.id}>{g.nome}</MenuItem>
                       ))}
                     </TextField>
@@ -135,15 +156,30 @@ export default function CadastroDepartamento({ departamento, onClose, gestores, 
                         <Chip key={colab.id} label={colab.nome} />
                       ))}
                     </Box>
-                    <TextField select label="Adicionar colaborador" value="" onChange={async e => {
-                      const id = e.target.value;
-                      if (!id) return;
-                      // Atualiza colaborador para este departamento
-                      const res = await import('../config/colaboradoresFirestore');
-                      await res.updateColaborador(id, { departamento: nome });
-                      // Atualiza lista local para refletir mudança imediatamente
-                      setColaboradores(prev => prev.map((c: any) => c.id === id ? { ...c, departamento: nome } : c));
-                    }} fullWidth sx={{ mb: 2 }}>
+                    <TextField 
+                      select 
+                      label="Adicionar colaborador" 
+                      value="" 
+                      InputLabelProps={{ sx: { color: '#22c55e', fontWeight: 500 } }}
+                      sx={{
+                        mb: 2,
+                        '& .MuiOutlinedInput-root': {
+                          '& fieldset': { borderColor: '#22c55e' },
+                          '&:hover fieldset': { borderColor: '#16a34a' },
+                          '&.Mui-focused fieldset': { borderColor: '#22c55e' },
+                        },
+                      }}
+                      onChange={async e => {
+                        const id = e.target.value;
+                        if (!id) return;
+                        // Atualiza colaborador para este departamento
+                        const res = await import('../config/colaboradoresFirestore');
+                        await res.updateColaborador(id, { departamento: nome });
+                        // Atualiza lista local para refletir mudança imediatamente
+                        setColaboradores(prev => prev.map((c: any) => c.id === id ? { ...c, departamento: nome } : c));
+                      }} 
+                      fullWidth 
+                    >
                       <MenuItem value="">Selecione</MenuItem>
                       {colaboradores.filter((c: any) => c.departamento !== nome).map((c: any) => (
                         <MenuItem key={c.id} value={c.id}>{c.nome}</MenuItem>

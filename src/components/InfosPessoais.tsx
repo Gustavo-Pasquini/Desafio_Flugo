@@ -41,6 +41,14 @@ export default function InfosPessoais({ nome, setNome, email, setEmail, ativo, s
           placeholder="e.g. john@gmail.com"
           error={!!errors?.email}
           helperText={errors?.email}
+          InputLabelProps={{ sx: { color: '#22c55e', fontWeight: 500 } }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': { borderColor: '#22c55e' },
+              '&:hover fieldset': { borderColor: '#16a34a' },
+              '&.Mui-focused fieldset': { borderColor: '#22c55e' },
+            },
+          }}
         />
         <FormControlLabel
           control={<Switch checked={ativo} onChange={e => setAtivo(e.target.checked)} sx={{ '& .MuiSwitch-switchBase.Mui-checked': { color: '#22c55e' }, '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#22c55e' } }} />}

@@ -32,9 +32,16 @@ export default function InfosProfissionais({ departamento, setDepartamento, depa
           onChange={e => setDepartamento(e.target.value)}
           fullWidth
           SelectProps={{ displayEmpty: true }}
-          sx={{ background: '#fafafa' }}
           error={!!errors?.departamento}
           helperText={errors?.departamento}
+          InputLabelProps={{ sx: { color: '#22c55e', fontWeight: 500 } }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': { borderColor: '#22c55e' },
+              '&:hover fieldset': { borderColor: '#16a34a' },
+              '&.Mui-focused fieldset': { borderColor: '#22c55e' },
+            },
+          }}
         >
           <MenuItem value="" disabled>
             Selecione um departamento
@@ -48,9 +55,16 @@ export default function InfosProfissionais({ departamento, setDepartamento, depa
           value={cargo}
           onChange={e => setCargo(e.target.value)}
           fullWidth
-          sx={{ background: '#fafafa' }}
           error={!!errors?.cargo}
           helperText={errors?.cargo}
+          InputLabelProps={{ sx: { color: '#22c55e', fontWeight: 500 } }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': { borderColor: '#22c55e' },
+              '&:hover fieldset': { borderColor: '#16a34a' },
+              '&.Mui-focused fieldset': { borderColor: '#22c55e' },
+            },
+          }}
         />
         <TextField
           label="Data de admissão"
@@ -58,10 +72,16 @@ export default function InfosProfissionais({ departamento, setDepartamento, depa
           value={dataAdmissao}
           onChange={e => setDataAdmissao(e.target.value)}
           fullWidth
-          sx={{ background: '#fafafa' }}
-          InputLabelProps={{ shrink: true }}
           error={!!errors?.dataAdmissao}
           helperText={errors?.dataAdmissao}
+          InputLabelProps={{ shrink: true, sx: { color: '#22c55e', fontWeight: 500 } }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': { borderColor: '#22c55e' },
+              '&:hover fieldset': { borderColor: '#16a34a' },
+              '&.Mui-focused fieldset': { borderColor: '#22c55e' },
+            },
+          }}
         />
         <TextField
           select
@@ -69,9 +89,16 @@ export default function InfosProfissionais({ departamento, setDepartamento, depa
           value={nivel}
           onChange={e => setNivel(e.target.value)}
           fullWidth
-          sx={{ background: '#fafafa' }}
           error={!!errors?.nivel}
           helperText={errors?.nivel}
+          InputLabelProps={{ sx: { color: '#22c55e', fontWeight: 500 } }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': { borderColor: '#22c55e' },
+              '&:hover fieldset': { borderColor: '#16a34a' },
+              '&.Mui-focused fieldset': { borderColor: '#22c55e' },
+            },
+          }}          
         >
           <MenuItem value="" disabled>
             Selecione o nível
@@ -87,9 +114,16 @@ export default function InfosProfissionais({ departamento, setDepartamento, depa
           value={gestor}
           onChange={e => setGestor(e.target.value)}
           fullWidth
-          sx={{ background: '#fafafa' }}
           error={!!errors?.gestor}
           helperText={errors?.gestor}
+          InputLabelProps={{ sx: { color: '#22c55e', fontWeight: 500 } }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': { borderColor: '#22c55e' },
+              '&:hover fieldset': { borderColor: '#16a34a' },
+              '&.Mui-focused fieldset': { borderColor: '#22c55e' },
+            },
+          }}          
         >
           <MenuItem value="" disabled>
             Selecione o gestor
@@ -105,9 +139,16 @@ export default function InfosProfissionais({ departamento, setDepartamento, depa
           value={salario}
           onChange={e => setSalario(e.target.value)}
           fullWidth
-          sx={{ background: '#fafafa' }}
           error={!!errors?.salario}
           helperText={errors?.salario}
+          InputLabelProps={{ sx: { color: '#22c55e', fontWeight: 500 } }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': { borderColor: '#22c55e' },
+              '&:hover fieldset': { borderColor: '#16a34a' },
+              '&.Mui-focused fieldset': { borderColor: '#22c55e' },
+            },
+          }}
         />
       </Box>
     </>
